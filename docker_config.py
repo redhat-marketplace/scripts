@@ -10,7 +10,7 @@ VAULT_ROLE_ID = os.environ['VAULT_ROLE_ID']
 VAULT_SECRET_ID = os.environ['VAULT_SECRET_ID']
 VAULT_URL = os.environ['VAULT_URL']
 DOCKER_TOKEN_PATH = os.environ['DOCKER_TOKEN_PATH']
-DOCKER_CONFIG = os.environ['HOME']+'/.docker/cofnig.json'
+DOCKER_CONFIG = os.environ['HOME']+'/.docker/config.json'
 
 
 client = hvac.Client(url=VAULT_URL)
@@ -30,7 +30,7 @@ if client.is_authenticated():
 }
 """
     tm = Template(TEMPLATE)
-    DOCKER_CONFIG = tm.render(DOCKER_TOKEN=vault_response['data']['DOCKER_TOKEN'])
+    CONFIG = tm.render(DOCKER_TOKEN=vault_response['data']['DOCKER_TOKEN'])
     try:
         os.mkdir(os.environ['HOME']+'/.docker')
     except FileExistsError:
