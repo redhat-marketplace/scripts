@@ -35,9 +35,12 @@ if client.is_authenticated():
         os.mkdir(os.environ['HOME']+'/.docker')
     except FileExistsError:
         pass
-    file = open(DOCKER_CONFIG, "w")
-    file.write(DOCKER_CONFIG)
-    file.close()
+    try:
+        file = open(DOCKER_CONFIG, "w")
+        file.write(CONFIG)
+        file.close()
+    except (IOError,FileNotFoundError):
+        print('failed to write the config')
 else:
     print('vault auth failed')
     sys.exit(1)
